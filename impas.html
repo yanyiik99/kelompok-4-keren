@@ -12,8 +12,8 @@
      </head>
      <body>
 
-     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          <div class="container my-3">
+     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+          <div class="container my-1">
                <div>
                     <i class="bi bi-eject"></i>
                     <a class="navbar-brand" href="#">
@@ -28,7 +28,7 @@
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                         <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                </button>
                <div class="navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav d-flex align-items-center">
@@ -77,6 +77,24 @@
                     </div>
                </div>
           </div>
+          <div class="section">
+               <div class="slide">
+                   <div class="">
+                       <div class="col-10 mx-auto">
+                           <form action="" id="penerimaanform">
+                               <h3 class="text-start">Demo Analisis Titik Impas</h3>
+                               <input type=hidden id=textDe step=1.0 >
+                               <input type="text" id="hju" step=1.0 class="form-control mt-3" required placeholder="Harga jual per unit...">
+                               <input type="text" id="unitpenerimaan" step=1.0 class="form-control mt-3" required placeholder="Banyak unit terjual...">
+                               <input type="text" id="hpenerimaan" step=1.0 class="form-control mt-3" required placeholder="Jumlah hari penerimaan...">
+                               <div class="d-flex justify-content-start mt-3">
+                                   <button class="d-block btn btn-primary" type="submit">Submit</button>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
           <div class="section">
                <div class="slide">
                     <div class="col-10 mx-auto d-flex flex-column justify-content-center align-items-center">
