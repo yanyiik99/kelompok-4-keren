@@ -274,9 +274,12 @@
                console.log(percentToDecimal(bv.value));
                     
                let breakEvenPoint = calculateBreakEvenPoint(Number(hjp.value.replace(/,/g, '')), Number(bt.value.replace(/,/g, '')), percentToDecimal(bv.value));
-
-               console.log("Titik Impas (BEP) adalah " + breakEvenPoint.quantity + " unit.");
-               console.log("Total Pendapatan pada Titik Impas adalah Rp. " + breakEvenPoint.revenue);
+               // swal("Titik Impas (BEP) Adalah " + breakEvenPoint.quantity + " unit.", "success");
+               swal("Jadi BEP = "+"("+ + breakEvenPoint.quantity +","+ + breakEvenPoint.revenue +")",  "Titik Impas " + breakEvenPoint.quantity + " unit." + "Total Pendapatan Rp. " + breakEvenPoint.revenue, "success");
+               // alert("Titik Impas (BEP) adalah " + breakEvenPoint.quantity + " unit.");
+               // alert("Total Pendapatan pada Titik Impas adalah Rp. " + breakEvenPoint.revenue);
+               "Jadi BEP = " + breakEvenPoint.quantity + breakEvenPoint.revenue
+               "BEP = " + breakEvenPoint.quantity + " unit." + "Total Pendapatan BEP adalah Rp. " + breakEvenPoint.revenue
 
 
           });
