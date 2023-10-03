@@ -155,9 +155,9 @@
                          <form action="" id="titikimpasform">
                               <h3 class="text-start">Demo Analisis Titik Impas</h3>
                               <input type=hidden id=textDe step=1.0 >
-                              <input type="text" id="hju" step=1.0 class="form-control mt-3" required placeholder="Harga jual per unit...">
-                              <input type="text" id="biayatetap" step=1.0 class="form-control mt-3" required placeholder="Biaya tetap...">
-                              <input type="text" id="biayavariabel" step=1.0 class="form-control mt-3" required placeholder="Biaya variabel...">
+                              <input type="text" id="hjp" step=1.0 class="form-control mt-3" required placeholder="Harga jual produk...">
+                              <input type="text" id="bv" step=1.0 class="form-control mt-3" required placeholder="Biaya variable...">
+                              <input type="text" id="bt" step=1.0 class="form-control mt-3" required placeholder="Biaya tetap...">
                               <div class="d-flex justify-content-start mt-3">
                                    <button class="d-block btn btn-primary" type="submit">Submit</button>
                               </div>
@@ -257,35 +257,51 @@
           }
 
           var textDe = new NumericInput(document.getElementById('textDe', 'de-DE'));
-          var hju = new NumericInput(document.getElementById('hju', 'de-DE'));
-          var biayatetap = new NumericInput(document.getElementById('biayatetap', 'de-DE'));
-          var biayavariabel = new NumericInput(document.getElementById('biayavariabel', 'de-DE'));
+          var hjp = new NumericInput(document.getElementById('hjp', 'de-DE'));
+          // var bv = new NumericInput(document.getElementById('bv', 'de-DE'));
+          var bt = new NumericInput(document.getElementById('bt', 'de-DE'));
 
           let titikimpasform = document.getElementById("titikimpasform");
 
           titikimpasform.addEventListener("submit", (e) => {
-          e.preventDefault();
+               e.preventDefault();
 
-          let hju = document.getElementById("hju");
-          let biayatetap = document.getElementById("biayatetap");
-          let biayavariabel = document.getElementById("biayavariabel");
-          let result_penerimaan = "";
+               let hjp = document.getElementById("hjp");
+               let bv = document.getElementById("bv");
+               let bt = document.getElementById("bt");
+               let result_penerimaan = "";
 
-          if (hju.value == "" || unitpenerimaan.value == "" || hpenerimaan.value == "") {
-          alert("Tolong masukan input!");
-          } else {
+               console.log(percentToDecimal(bv.value));
+                    
+               let breakEvenPoint = calculateBreakEvenPoint(Number(hjp.value.replace(/,/g, '')), Number(bt.value.replace(/,/g, '')), percentToDecimal(bv.value));
 
-          // result_penerimaan = Number(hju.value.replace(/,/g, '')) + (Number(unitpenerimaan.value.replace(/,/g, '')) * Number(hpenerimaan.value.replace(/,/g, '')));
-          result_penerimaan = (Number(hju.value.replace(/,/g, '')) * Number(unitpenerimaan.value.replace(/,/g, ''))) * Number(hpenerimaan.value.replace(/,/g, ''));
-          //     alert("Hasilnya adalah " + numeral(result_penerimaan).format('0,0'));
-          swal("Hasilnya Adalah " + numeral(result_penerimaan).format('0,0'),"Berhasil!", "success");
+               console.log("Titik Impas (BEP) adalah " + breakEvenPoint.quantity + " unit.");
+               console.log("Total Pendapatan pada Titik Impas adalah Rp. " + breakEvenPoint.revenue);
 
-          hju.value = "";
-          unitpenerimaan.value = "";
-          hpenerimaan.value = "";
-          result_penerimaan = "";
-          }
+
           });
+
+
+          function calculateBreakEvenPoint(sellingPrice, fixedCost, variableCostPercentage) {
+               let totalFixedCost = fixedCost;
+
+               let variableCostPerUnit = sellingPrice * variableCostPercentage;
+
+               let breakEvenPointQuantity = totalFixedCost / (sellingPrice - variableCostPerUnit);
+
+               let breakEvenPointRevenue = sellingPrice * breakEvenPointQuantity;
+
+               return {
+                    quantity: breakEvenPointQuantity,
+                    revenue: breakEvenPointRevenue
+               };
+          }
+
+          const percentToDecimal = (percentStr) => {
+               return parseFloat(percentStr) / 100;  
+          };
+
+
 
      </script>
      </body>
