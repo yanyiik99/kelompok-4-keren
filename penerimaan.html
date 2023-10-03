@@ -152,7 +152,7 @@
 
 
 
-
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <script src="./assets/script.js"></script>
      <script src="./assets/easy-number-separator-master/easy-number-separator.js"></script>
      <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
@@ -235,7 +235,8 @@
           
               // result_penerimaan = Number(hju.value.replace(/,/g, '')) + (Number(unitpenerimaan.value.replace(/,/g, '')) * Number(hpenerimaan.value.replace(/,/g, '')));
               result_penerimaan = (Number(hju.value.replace(/,/g, '')) * Number(unitpenerimaan.value.replace(/,/g, ''))) * Number(hpenerimaan.value.replace(/,/g, ''));
-              alert("Hasilnya adalah " + numeral(result_penerimaan).format('0,0'));
+          //     alert("Hasilnya adalah " + numeral(result_penerimaan).format('0,0'));
+              swal("Hasilnya Adalah " + numeral(result_penerimaan).format('0,0'),"Berhasil!", "success");
 
               hju.value = "";
               unitpenerimaan.value = "";
