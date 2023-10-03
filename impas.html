@@ -152,12 +152,12 @@
                <div class="slide">
                <div class="">
                     <div class="col-10 mx-auto">
-                         <form action="" id="penerimaanform">
+                         <form action="" id="titikimpasform">
                               <h3 class="text-start">Demo Analisis Titik Impas</h3>
                               <input type=hidden id=textDe step=1.0 >
                               <input type="text" id="hju" step=1.0 class="form-control mt-3" required placeholder="Harga jual per unit...">
-                              <input type="text" id="unitpenerimaan" step=1.0 class="form-control mt-3" required placeholder="Banyak unit terjual...">
-                              <input type="text" id="hpenerimaan" step=1.0 class="form-control mt-3" required placeholder="Jumlah hari penerimaan...">
+                              <input type="text" id="biayatetap" step=1.0 class="form-control mt-3" required placeholder="Biaya tetap...">
+                              <input type="text" id="biayavariabel" step=1.0 class="form-control mt-3" required placeholder="Biaya variabel...">
                               <div class="d-flex justify-content-start mt-3">
                                    <button class="d-block btn btn-primary" type="submit">Submit</button>
                               </div>
@@ -197,7 +197,7 @@
 
 
 
-
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -209,6 +209,84 @@
                scrollHorizontally: true,
                navigation: true,
           });
+
+          "use strict";
+
+          function NumericInput(inp, locale) {
+               var numericKeys = '0123456789';
+
+               // restricts input to numeric keys 0-9
+               inp.addEventListener('keypress', function(e) {
+               var event = e || window.event;
+               var target = event.target;
+
+               if (event.charCode == 0) {
+                    return;
+               }
+
+               if (-1 == numericKeys.indexOf(event.key)) {
+                    // Could notify the user that 0-9 is only acceptable input.
+                    event.preventDefault();
+                    return;
+               }
+               });
+
+               // add the thousands separator when the user blurs
+               inp.addEventListener('blur', function(e) {
+               var event = e || window.event;
+               var target = event.target;
+
+               var tmp = target.value.replace(/,/g, '');
+               var val = Number(tmp).toLocaleString(locale);
+
+               if (tmp == '') {
+                    target.value = '';
+               } else {
+                    target.value = val;
+               }
+               });
+
+               // strip the thousands separator when the user puts the input in focus.
+               inp.addEventListener('focus', function(e) {
+               var event = e || window.event;
+               var target = event.target;
+               var val = target.value.replace(/[,.]/g, '');
+
+               target.value = val;
+               });
+          }
+
+          var textDe = new NumericInput(document.getElementById('textDe', 'de-DE'));
+          var hju = new NumericInput(document.getElementById('hju', 'de-DE'));
+          var biayatetap = new NumericInput(document.getElementById('biayatetap', 'de-DE'));
+          var biayavariabel = new NumericInput(document.getElementById('biayavariabel', 'de-DE'));
+
+          let titikimpasform = document.getElementById("titikimpasform");
+
+          titikimpasform.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          let hju = document.getElementById("hju");
+          let biayatetap = document.getElementById("biayatetap");
+          let biayavariabel = document.getElementById("biayavariabel");
+          let result_penerimaan = "";
+
+          if (hju.value == "" || unitpenerimaan.value == "" || hpenerimaan.value == "") {
+          alert("Tolong masukan input!");
+          } else {
+
+          // result_penerimaan = Number(hju.value.replace(/,/g, '')) + (Number(unitpenerimaan.value.replace(/,/g, '')) * Number(hpenerimaan.value.replace(/,/g, '')));
+          result_penerimaan = (Number(hju.value.replace(/,/g, '')) * Number(unitpenerimaan.value.replace(/,/g, ''))) * Number(hpenerimaan.value.replace(/,/g, ''));
+          //     alert("Hasilnya adalah " + numeral(result_penerimaan).format('0,0'));
+          swal("Hasilnya Adalah " + numeral(result_penerimaan).format('0,0'),"Berhasil!", "success");
+
+          hju.value = "";
+          unitpenerimaan.value = "";
+          hpenerimaan.value = "";
+          result_penerimaan = "";
+          }
+          });
+
      </script>
      </body>
      </html>

@@ -67,7 +67,8 @@ biayaform.addEventListener("submit", (e) => {
   } else {
     
     result_biaya = Number(tc.value.replace(/,/g, '')) + (Number(vc.value.replace(/,/g, '')) * Number(unit.value.replace(/,/g, '')));
-    alert("Hasilnya adalah " + numeral(result_biaya).format('0,0'));
+    // alert("Hasilnya adalah " + numeral(result_biaya).format('0,0'));
+    swal("Hasilnya Adalah " + numeral(result_biaya).format('0,0'),"Berhasil!", "success");
 
     tc.value = "";
     vc.value = "";
